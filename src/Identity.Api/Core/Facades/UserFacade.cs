@@ -23,9 +23,7 @@ namespace Identity.Api.Core.Facades
         {
             var userSource = await FindUserSource(username);
             if (userSource == UserSource.None)
-            {
                 return null;
-            }
 
             return await _repos.Where(x => x.SourceSystem == userSource).First().Get(username);
         }
@@ -34,9 +32,7 @@ namespace Identity.Api.Core.Facades
         {
             var userSource = await FindUserSource(credential.Username);
             if (userSource == UserSource.None)
-            {
                 return null;
-            }
 
             var user = await _repos.Where(x => x.SourceSystem == userSource).First().Get(credential.Username);
             if (user.ValidatePassword(credential.Password))
@@ -51,9 +47,8 @@ namespace Identity.Api.Core.Facades
                 request.EmailAddress, UserStatus.Enabled, request.Password, (UserSource)request.System);
             
             var result = await _repos.Where(x => x.SourceSystem == user.Source).First().AddUser(user);
-            if (!result){
+            if (!result)
                 return null;
-            }
 
             return user;
         }

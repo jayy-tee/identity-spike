@@ -11,7 +11,6 @@ namespace Identity.Infrastructure
 {
     public class FakeUserRepository : ILegacyUserRepository, IDisposable
     {
-        private List<User> _users;
         private readonly IDbConnection _db;
         private const string _connString = "host=127.0.0.1;port=13306;user id=root;password=123456;database=spike;";
         public void Dispose()

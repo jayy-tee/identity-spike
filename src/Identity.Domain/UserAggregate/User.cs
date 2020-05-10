@@ -30,42 +30,23 @@ namespace Identity.Domain.UserAggregate
 
         private User() { }
 
-        public bool ValidatePassword(string password)
-        {
-            if (_passwordHash == GenerateHash(password))
-                return true;
-            return false;
-        }
+        public bool ValidatePassword(string password) =>
+            _passwordHash == GenerateHash(password);
 
-        public void Enable()
-        {
-            UserStatus = UserStatus.Enabled;
-        }
-
-        public void Disable()
-        {
-            UserStatus = UserStatus.Disabled;
-        }
+        public void Enable() => UserStatus = UserStatus.Enabled;
+        public void Disable() => UserStatus = UserStatus.Disabled;
 
         public void SetPassword(string password)
         {
             if (Source == UserSource.New)
-            {
                 _passwordSalt = PasswordHelper.GenerateSalt();
-            }
+  
             _passwordHash = GenerateHash(password);
         }
 
-        public string GetPasswordHash()
-        {
-            return _passwordHash;
-        }
-
-        public string GetPasswordSalt()
-        {
-            return _passwordSalt;
-        }
-
+        public string GetPasswordHash() => _passwordHash; 
+        public string GetPasswordSalt() => _passwordSalt;
+        
         private string GenerateHash(string password)
         {
             switch (Source)
