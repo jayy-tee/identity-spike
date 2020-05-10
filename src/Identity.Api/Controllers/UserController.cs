@@ -26,14 +26,8 @@ namespace Identity.Api.Controllers
         [Route("{username}/detail")]
         public async Task<IActionResult> GetUser(string username)
         {
-           
             var user = await _userFacade.GetUser(username);
-            if (user != null)
-            {
-                return Ok(user);
-            }
-
-            return NotFound();
+            return user != null ? (ActionResult)Ok(user) : (ActionResult)NotFound();
         }
 
         [HttpPost]
@@ -41,17 +35,11 @@ namespace Identity.Api.Controllers
         public async Task<IActionResult> Authenticate(string username, UserCredential credential)
         {
             if (username != credential.Username)
-            {
                 return BadRequest();
-            }
 
             var user = await _userFacade.ValidateCredentials(credential);
-            if (user != null && user.UserStatus == UserStatus.Enabled)
-            {
-                return Ok(user);
-            }
-
-            return Unauthorized();
+            return (user != null && user.UserStatus == UserStatus.Enabled)
+                ? (ActionResult)Ok(user) : (ActionResult)Unauthorized();
         }
 
         [HttpPost]
@@ -59,15 +47,12 @@ namespace Identity.Api.Controllers
         public async Task<IActionResult> NewUser(NewUserDto newUser)
         {
             var exists = await _userFacade.GetUser(newUser.Username);
-            if (exists != null){
+            if (exists != null)
                 return BadRequest();
-            }
-            var user = await _userFacade.NewUser(newUser);
-            if (user != null)
-                return CreatedAtAction(nameof(GetUser), new { username = user.Username }, user);
-            
-            return BadRequest();
-        }
 
+            var user = await _userFacade.NewUser(newUser);
+            return user != null ? (ActionResult)CreatedAtAction(nameof(GetUser), new { username = user.Username }, user)
+                : (ActionResult)BadRequest();
+        }
     }
 }

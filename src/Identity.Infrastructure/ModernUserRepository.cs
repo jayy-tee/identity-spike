@@ -21,18 +21,14 @@ namespace Identity.Infrastructure
             SourceSystem = UserSource.New;
         }
 
-        public async Task<User> Get(string username)
-        {
-            return _users.Where(u => u.Username == username).FirstOrDefault();
-        }
-
-        public async Task<bool> CheckExists(string username)
-        {
-            return _users.Where(u => u.Username == username).Count() > 0;
-        }
-        public async Task<bool> AddUser(User user)
-        {
+        public async Task<User> Get(string username) =>
+             _users.Where(u => u.Username == username).FirstOrDefault();
+             
+        public async Task<bool> CheckExists(string username) =>
+            _users.Where(u => u.Username == username).Count() > 0;
+        
+        public async Task<bool> AddUser(User user) =>
             throw new NotImplementedException();
-        }
+
     }
 }
