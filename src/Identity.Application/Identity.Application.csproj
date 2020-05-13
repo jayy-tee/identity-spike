@@ -5,15 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Identity.Application\Identity.Application.csproj" />
     <ProjectReference Include="..\Identity.Common\Identity.Common.csproj" />
     <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="dapper" Version="2.0.35" />
-    <PackageReference Include="MySql.Data" Version="8.0.20" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.4" />
   </ItemGroup>
 
 </Project>

@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using MySql.Data.MySqlClient;
-using Identity.Domain.UserAggregate;
+using Identity.Application.Users;
 using Identity.Common;
+using Identity.Domain.UserAggregate;
 
 namespace Identity.Infrastructure
 {
-    public class FakeUserRepository : ILegacyUserRepository, IDisposable
+    public class FakeUserRepository : IUserRepository, IDisposable
     {
         private readonly IDbConnection _db;
         private const string _connString = "host=127.0.0.1;port=13306;user id=root;password=123456;database=spike;";

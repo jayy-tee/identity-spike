@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Identity.Api.Core.Facades;
+using Identity.Application.Users;
 using Identity.Domain.UserAggregate;
 using Identity.Infrastructure;
 

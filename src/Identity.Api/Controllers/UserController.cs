@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Identity.Api.Core.Facades;
-using Identity.Api.Dto;
+using Identity.Application.Users;
+using Identity.Application.Users.Model;
 using Identity.Common;
 using Identity.Domain.UserAggregate;
 

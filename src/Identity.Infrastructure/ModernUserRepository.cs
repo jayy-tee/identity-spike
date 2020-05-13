@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Identity.Application.Users;
 using Identity.Common;
 using Identity.Domain.UserAggregate;
 
+
 namespace Identity.Infrastructure
 {
-    public class ModernUserRepository : IModernUserRepository
+    public class ModernUserRepository : IUserRepository
     {
         private List<User> _users;
         public UserSource SourceSystem { get; private set; }

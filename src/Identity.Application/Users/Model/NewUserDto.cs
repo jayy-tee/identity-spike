@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Identity.Api.Dto
+namespace Identity.Application.Users.Model
 {
     public class NewUserDto
     {
