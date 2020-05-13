@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Identity.Api.Dto;
+using Identity.Application.Users.Model;
 using Identity.Domain.UserAggregate;
 using Identity.Common;
 
-namespace Identity.Api.Core.Facades
+namespace Identity.Application.Users
 {
     public class UserFacade : IUserFacade
     {

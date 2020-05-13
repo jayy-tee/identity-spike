@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using Identity.Common;
+using Identity.Domain.UserAggregate;
 
-namespace Identity.Domain.UserAggregate
+namespace Identity.Application.Users
 {
     public interface IUserRepository
     {

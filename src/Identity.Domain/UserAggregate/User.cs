@@ -14,6 +14,7 @@ namespace Identity.Domain.UserAggregate
         private string _passwordHash;
         private string _passwordSalt;
 
+        private User() { }
         public User(string firstname, string lastname, string username,
                     string emailAddress, UserStatus userStatus,
                     string password, UserSource source)
@@ -28,25 +29,21 @@ namespace Identity.Domain.UserAggregate
             SetPassword(password);
         }
 
-        private User() { }
-
-        public bool ValidatePassword(string password) =>
-            _passwordHash == GenerateHash(password);
-
+        public string GetPasswordHash() => _passwordHash;
+        public string GetPasswordSalt() => _passwordSalt;
         public void Enable() => UserStatus = UserStatus.Enabled;
         public void Disable() => UserStatus = UserStatus.Disabled;
+        public bool ValidatePassword(string password) =>
+            _passwordHash == GenerateHash(password);
 
         public void SetPassword(string password)
         {
             if (Source == UserSource.New)
                 _passwordSalt = PasswordHelper.GenerateSalt();
-  
+
             _passwordHash = GenerateHash(password);
         }
 
-        public string GetPasswordHash() => _passwordHash; 
-        public string GetPasswordSalt() => _passwordSalt;
-        
         private string GenerateHash(string password)
         {
             switch (Source)
