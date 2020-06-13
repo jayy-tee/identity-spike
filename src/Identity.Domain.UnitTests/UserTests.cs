@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Identity.Common;
 using Identity.Domain.UserAggregate;
-using Identity.Domain.UnitTests.TestData;
+using Identity.TestSdk.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
