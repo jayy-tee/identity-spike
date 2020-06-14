@@ -7,16 +7,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Identity.Api\Identity.Api.csproj" />
     <ProjectReference Include="..\Identity.Common\Identity.Common.csproj" />
     <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
     <ProjectReference Include="..\Identity.TestSdk\Identity.TestSdk.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="GreyhamWooHoo.Interceptor.Core" Version="1.1.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="Serilog" Version="2.9.0" />
+    <PackageReference Include="Serilog.AspnetCore" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Identity.Api\appsettings.Development.json" Link="appsettings.Development.json" />
+    <Content Include="..\Identity.Api\appsettings.json" Link="appsettings.json" />
+    <Content Include="..\Identity.Api\appsettings.Local.json" Link="appsettings.Local.json" />
+    <Content Include="TestSettings\testSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestSettings\testSettings.Local-InProcess.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
