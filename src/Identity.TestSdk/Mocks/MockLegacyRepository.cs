@@ -24,13 +24,15 @@ namespace Identity.TestSdk.Mocks
         }
 
         public async Task<User> Get(string username) =>
-             _users.Where(u => u.Username == username).FirstOrDefault();
+            await Task.FromResult(_users.Where(u => u.Username == username).FirstOrDefault());
              
         public async Task<bool> CheckExists(string username) =>
-            _users.Where(u => u.Username == username).Count() > 0;
+            await Task.FromResult(_users.Where(u => u.Username == username).Count() > 0);
         
-        public async Task<bool> AddUser(User user) =>
-            throw new NotImplementedException();
+        public async Task<bool> AddUser(User user) {
+            _users.Add(user);
+            return await Task.FromResult(true);
+        }
 
     }
 }
