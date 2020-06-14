@@ -55,7 +55,7 @@ namespace Identity.Api.AcceptanceTests
         }
 
         [TestMethod]
-        public void WhenWeAuthenticateWithValidCredentials_WeGetAnOkResponse()
+        public void WhenWeAuthenticateWithValidCredentials_WeGetAnOkResponseWithTheCorrectUser()
         {
             // Arrange
             var request = new UserRequestBuilder()
@@ -64,7 +64,10 @@ namespace Identity.Api.AcceptanceTests
                 .Build();
 
             // Act
-            Client.Execute(request, andExpect: System.Net.HttpStatusCode.OK);
+            var response = Client.Execute(request, andExpect: System.Net.HttpStatusCode.OK).As<UserProfileResponse>();
+
+            // Assert           
+            response.Username.Should().Be(testUserUsername);
         }
 
         [TestMethod]
