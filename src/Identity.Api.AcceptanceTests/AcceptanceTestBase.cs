@@ -2,6 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Identity.Api;
 using Identity.Api.AcceptanceTests.Infrastructure;
@@ -29,15 +31,18 @@ namespace Identity.Api.AcceptanceTests
         [TestInitialize]
         public async Task SetupAcceptanceTestBase()
         {
+
             // Create a new Lifetime Scope for the test: anything in the container with .AddScoped() will be resolved exactly once within each Scope
             _scope = ContainerSingleton.Instance().CreateScope();
 
             var testSettings = Resolve<TestSettings>();
+
             
-            if(IsInProcessOnly && !testSettings.InProcess)
+
+            if (IsInProcessOnly && !testSettings.InProcess)
             {
                 Assert.Inconclusive($"The test called {TestContext.FullyQualifiedTestClassName} can only be run InProcess; the current TestExecutionContext is not InProcess. Therefore, the test is being skipped. To avoid this message, consider using a TestCategory on the test and explicitly ignoring it in the Test Filter. ");
-            } 
+            }
 
             foreach (var key in testSettings.EnvironmentVariables.Keys)
             {
@@ -46,6 +51,7 @@ namespace Identity.Api.AcceptanceTests
 
             Environment.SetEnvironmentVariable("ASPNETCORE_URLS", testSettings.BaseUrl, EnvironmentVariableTarget.Process);
 
+            SkipIfOutOfProcessOnly();
             if (testSettings.InProcess)
             {
                 _host = Program
@@ -81,6 +87,28 @@ namespace Identity.Api.AcceptanceTests
         protected T Resolve<T>()
         {
             return (T)_scope.ServiceProvider.GetRequiredService(typeof(T));
+        }
+
+        protected void SkipIfOutOfProcessOnly()
+        {
+            var testSettings = Resolve<TestSettings>();
+            var testMethod = GetMethodInfo();
+            var testCategories = testMethod
+                .GetCustomAttributes<TestCategoryAttribute>(true)
+                .Select(x => x.TestCategories.Where(c => c.Contains("SkipIfInProcess")));
+                
+            if (testCategories.Count() > 0 && testSettings.InProcess)
+                Assert.Inconclusive(TestContext.FullyQualifiedTestClassName);
+        }
+
+        protected MethodInfo GetMethodInfo()
+        {
+            var testClass = this.GetType().Assembly.GetTypes()
+                .Where(t => t.IsClass)
+                .Where(t => t.FullName == TestContext.FullyQualifiedTestClassName)
+                .Single();
+
+            return testClass.GetMethod(TestContext.TestName);
         }
 
         protected virtual void ConfigureServices(IServiceCollection services)

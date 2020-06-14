@@ -5,13 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using System.Net;
 
 
 namespace Identity.Api.AcceptanceTests
 {
     [TestClass]
     [TestCategory("RequiresInProcess")]
-    public class UserTests : UserTestBase
+    public class InProcessUserTests : UserTestBase
     {
         protected override bool IsInProcessOnly => true;
         protected override void ConfigureServices(IServiceCollection services)
@@ -26,28 +27,27 @@ namespace Identity.Api.AcceptanceTests
             services.AddSingleton<IUserRepository, MockLegacyRepository>();
         }
 
-        public override void SetupTest()
-        {
-            var dateString = DateTime.Now.ToString("yyyyMMddHHmmss");
-            testUserUsername = $"acceptancetestuser{dateString}";
-            testUserPassword = $"thePassword{dateString}";
-            testUserUrl = $"/api/user/{testUserUsername}";
-        }
-
         [TestInitialize]
-        public void WhenRunningTests_CreateAUser()
+        public void WhenRunningTests_CreateAUserIfItDoesntExist()
         {
-            // Arrange
+            // Setup and check if test user exists
             SetupTest();
             var request = new UserRequestBuilder()
+                    .GetUser(testUserUsername)
+                    .Build();
+
+            var response = Client.Execute(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+                return;
+
+            // Create test user
+            var newUserRequest = new UserRequestBuilder()
                     .CreateUser()
                     .UsingTestData()
                     .WithUsername(testUserUsername)
                     .WithPassword(testUserPassword)
                     .Build();
-
-            // Act
-            Client.Execute(request, andExpect: System.Net.HttpStatusCode.Created);
+            Client.Execute(newUserRequest, andExpect: System.Net.HttpStatusCode.Created);
         }
 
         [TestMethod]
