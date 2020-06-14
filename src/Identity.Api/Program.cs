@@ -16,11 +16,14 @@ namespace Identity.Api
             CreateHostBuilder(args).Build().Run();
         }
 
+        public static IHostBuilder CreateHostBuilder() => CreateHostBuilder(new string[0]);
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseConfiguration(ConfigurationSingleton.Instance)
+                        .UseStartup<Startup>();
                 });
     }
 }
