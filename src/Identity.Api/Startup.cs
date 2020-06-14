@@ -31,7 +31,7 @@ namespace Identity.Api
         {
             services.AddControllers();
             services.AddTransient<IUserFacade, UserFacade>();
-            services.AddScoped<IUserRepository, FakeUserRepository>();
+            services.AddScoped<IUserRepository, LegacyUserRepository>();
             services.AddScoped<IUserRepository, ModernUserRepository>();
         }
 

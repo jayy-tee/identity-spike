@@ -22,7 +22,7 @@ namespace Identity.Cli
         {
             var services = new ServiceCollection();
             services.AddLogging(configure => configure.AddConsole());
-            services.AddScoped<IUserRepository, FakeUserRepository>();
+            services.AddScoped<IUserRepository, LegacyUserRepository>();
             services.AddScoped<IUserRepository, ModernUserRepository>();
             services.AddTransient<IUserFacade, UserFacade>();
             services.AddTransient<IdentityCli, IdentityCli>();

@@ -10,7 +10,7 @@ using Identity.Domain.UserAggregate;
 
 namespace Identity.Infrastructure
 {
-    public class FakeUserRepository : IUserRepository, IDisposable
+    public class LegacyUserRepository : IUserRepository, IDisposable
     {
         private readonly IDbConnection _db;
         private const string _connString = "host=127.0.0.1;port=13306;user id=root;password=123456;database=spike;";
@@ -20,7 +20,7 @@ namespace Identity.Infrastructure
         }
 
         public UserSource SourceSystem { get; private set; }
-        public FakeUserRepository()
+        public LegacyUserRepository()
         {
             _db = new MySqlConnection(_connString);
             SourceSystem = UserSource.Legacy;
@@ -42,7 +42,10 @@ namespace Identity.Infrastructure
 
         public async Task<bool> AddUser(User user)
         {
-            _db.Open();
+
+            if (_db.State != ConnectionState.Open)
+                _db.Open();
+
             var tran = _db.BeginTransaction();
             try {
                 await _db.ExecuteAsync(
