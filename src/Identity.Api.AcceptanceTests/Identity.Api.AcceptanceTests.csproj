@@ -31,6 +31,9 @@
     <Content Include="TestSettings\testSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestSettings\testSettings.Local.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestSettings\testSettings.Local-InProcess.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
