@@ -41,6 +41,20 @@ namespace Identity.Api.AcceptanceTests
         }
 
         [TestMethod]
+        [TestCategory("Contract")]
+        public void WhenUserDoesntExist_WeGetNotFound()
+        {
+            // Arrange
+            const string NonExistentUser = "fakeuserdontexist";
+            var request = new UserRequestBuilder()
+                .GetUser(NonExistentUser)
+                .Build();
+
+            // Act
+            Client.Execute(request, andExpect: System.Net.HttpStatusCode.NotFound);
+        }
+
+        [TestMethod]
         public void WhenWeAuthenticateWithValidCredentials_WeGetAnOkResponse()
         {
             // Arrange
