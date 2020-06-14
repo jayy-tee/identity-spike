@@ -39,6 +39,8 @@ namespace Identity.Cli
             {
                 "new user" => NewUser(),
                 "get user" => GetUser(),
+                "generate modern" => GenerateRandomUsers(),
+                "generate legacy" => GenerateRandomUsers(UserSource.Legacy),
                 "quit" => false,
                 _ => true,
             };
@@ -84,6 +86,43 @@ namespace Identity.Cli
             catch
             {
                 Console.WriteLine("Failed to created user in database.");
+            }
+
+            return true;
+        }
+
+        private bool GenerateRandomUsers(UserSource sourceSystem = UserSource.New)
+        {
+            Console.WriteLine("... GENERATE RANDOM USERS ...\n\n");
+
+            Console.Write("Number of users to generate: ");
+            var userCount = Int32.Parse(Console.ReadLine());
+
+            Console.Write("Username Prefix: ");
+            var userPrefix = Console.ReadLine();
+
+            Console.WriteLine($"Attempting to generate {userCount.ToString()} users... \n\n");
+            for (var i = 0; i < userCount; i++)
+            {
+                try
+                {
+                    var user = _users.NewUser(new NewUserDto()
+                    {
+                        FirstName = $"theFirstname{i.ToString()}",
+                        LastName = $"theLastname{i.ToString()}",
+                        EmailAddress = $"{userPrefix}{i.ToString()}@{sourceSystem.ToString().ToLower()}.fake.com",
+                        Password = $"thePassword{i.ToString()}",
+                        Username = $"{userPrefix}{i.ToString()}",
+                        System = (int)sourceSystem
+
+                    }).Result;
+
+                    Console.WriteLine($"Successfully created '{userPrefix}{i.ToString()}' in the database.");
+                }
+                catch
+                {
+                    Console.WriteLine("Failed to created user in database.");
+                }
             }
 
             return true;
