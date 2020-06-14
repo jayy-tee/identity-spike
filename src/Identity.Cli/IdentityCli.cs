@@ -39,7 +39,7 @@ namespace Identity.Cli
             {
                 "new user" => NewUser(),
                 "get user" => GetUser(),
-                "generate modern" => GenerateRandomUsers(),
+                "generate modern" => GenerateRandomUsers(UserSource.New),
                 "generate legacy" => GenerateRandomUsers(UserSource.Legacy),
                 "quit" => false,
                 _ => true,
