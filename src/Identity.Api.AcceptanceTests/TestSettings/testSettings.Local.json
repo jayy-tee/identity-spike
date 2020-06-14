@@ -1,0 +1,9 @@
+{
+  "testSettings": {
+    "baseUrl": "http://localhost:5000",
+    "inProcess": false,
+    "environmentVariables": {
+      "ASPNETCORE_ENVIRONMENT": "Local"
+    }
+  }
+}

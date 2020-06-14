@@ -2,11 +2,11 @@ namespace Identity.TestSdk.ResponseModels
 {
     public class UserProfileResponse
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Username { get; set; }
-        public string EmailAddress { get; set; }
-        public int UserStatus { get; set; }
-        public int Source { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string username { get; set; }
+        public string emailAddress { get; set; }
+        public int userStatus { get; set; }
+        public int source { get; set; }
     }
 }

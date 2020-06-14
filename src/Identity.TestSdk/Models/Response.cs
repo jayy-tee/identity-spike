@@ -9,7 +9,7 @@ namespace Identity.TestSdk.Models
     {
         private static JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
-            PropertyNameCaseInsensitive = true,
+            PropertyNameCaseInsensitive = false,
         };
         private readonly IRestResponse _response;
 
