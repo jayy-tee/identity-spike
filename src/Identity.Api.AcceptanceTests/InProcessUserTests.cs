@@ -65,5 +65,17 @@ namespace Identity.Api.AcceptanceTests
             Client.Execute(request, andExpect: System.Net.HttpStatusCode.BadRequest);
         }
 
+        [TestMethod]
+        public void WhenAddingAUserWithInvalidData_WeGetBadRequest()
+        {
+            // Arrange
+            var request = new UserRequestBuilder()
+                    .CreateUser()
+                    .Build();
+
+            // Act/Assert
+            Client.Execute(request, andExpect: System.Net.HttpStatusCode.BadRequest);
+        }
+
     }
 }
