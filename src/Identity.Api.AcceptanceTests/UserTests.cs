@@ -8,14 +8,13 @@ using System.Net;
 namespace Identity.Api.AcceptanceTests
 {
     [TestClass]
-    [TestCategory("SkipIfInProcess")]
     public class UserTests : UserTestBase
     {
+        protected override bool SkipIfInProcess => true;
 
         [TestInitialize]
         public void WhenRunningTests_CreateAUserIfItDoesntExist()
         {
-            SkipIfOutOfProcessOnly();
             // Setup and check if test user exists
             SetupTest();
             var request = new UserRequestBuilder()
@@ -36,5 +35,10 @@ namespace Identity.Api.AcceptanceTests
             Client.Execute(newUserRequest, andExpect: System.Net.HttpStatusCode.Created);
         }
 
+        [TestMethod]
+        public void BogusUserTestThatShouldBeSkippedWhenInProcess()
+        {
+            Assert.IsTrue(true);
+        }
     }
 }
