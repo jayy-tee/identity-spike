@@ -37,11 +37,14 @@ namespace Identity.Api.AcceptanceTests
 
             var testSettings = Resolve<TestSettings>();
 
-            
-
             if (IsInProcessOnly && !testSettings.InProcess)
             {
                 Assert.Inconclusive($"The test called {TestContext.FullyQualifiedTestClassName} can only be run InProcess; the current TestExecutionContext is not InProcess. Therefore, the test is being skipped. To avoid this message, consider using a TestCategory on the test and explicitly ignoring it in the Test Filter. ");
+            }
+
+            if (SkipIfInProcess && testSettings.InProcess)
+            {
+                Assert.Inconclusive($"The test called {TestContext.FullyQualifiedTestClassName} can only be run when not InProcess; the current TestExecutionContext is InProcess. Therefore, the test is being skipped.");
             }
 
             foreach (var key in testSettings.EnvironmentVariables.Keys)
@@ -51,7 +54,6 @@ namespace Identity.Api.AcceptanceTests
 
             Environment.SetEnvironmentVariable("ASPNETCORE_URLS", testSettings.BaseUrl, EnvironmentVariableTarget.Process);
 
-            SkipIfOutOfProcessOnly();
             if (testSettings.InProcess)
             {
                 _host = Program
@@ -89,32 +91,11 @@ namespace Identity.Api.AcceptanceTests
             return (T)_scope.ServiceProvider.GetRequiredService(typeof(T));
         }
 
-        protected void SkipIfOutOfProcessOnly()
-        {
-            var testSettings = Resolve<TestSettings>();
-            var testMethod = GetMethodInfo();
-            var testCategories = testMethod
-                .GetCustomAttributes<TestCategoryAttribute>(true)
-                .Select(x => x.TestCategories.Where(c => c.Contains("SkipIfInProcess")));
-                
-            if (testCategories.Count() > 0 && testSettings.InProcess)
-                Assert.Inconclusive(TestContext.FullyQualifiedTestClassName);
-        }
-
-        protected MethodInfo GetMethodInfo()
-        {
-            var testClass = this.GetType().Assembly.GetTypes()
-                .Where(t => t.IsClass)
-                .Where(t => t.FullName == TestContext.FullyQualifiedTestClassName)
-                .Single();
-
-            return testClass.GetMethod(TestContext.TestName);
-        }
-
         protected virtual void ConfigureServices(IServiceCollection services)
         {
         }
 
         protected virtual bool IsInProcessOnly => false;
+        protected virtual bool SkipIfInProcess => false;
     }
 }
