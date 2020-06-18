@@ -3,26 +3,28 @@ using System.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 using Identity.Application.Users;
 using Identity.Common;
 using Identity.Domain.UserAggregate;
+using Identity.Infrastructure.Config;
 
 namespace Identity.Infrastructure
 {
     public class LegacyUserRepository : IUserRepository, IDisposable
     {
         private readonly IDbConnection _db;
-        private const string _connString = "host=127.0.0.1;port=13306;user id=root;password=123456;database=spike;";
+        
         public void Dispose()
         {
             _db.Close();
         }
 
         public UserSource SourceSystem { get; private set; }
-        public LegacyUserRepository()
+        public LegacyUserRepository(IOptions<ConnectionStrings> connectionStrings)
         {
-            _db = new MySqlConnection(_connString);
+            _db = new MySqlConnection(connectionStrings.Value.LegacyUsers);
             SourceSystem = UserSource.Legacy;
         }
 

@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Identity.Application.Users;
 using Identity.Domain.UserAggregate;
 using Identity.Infrastructure;
+using Identity.Infrastructure.Config;
 
 
 namespace Identity.Api
@@ -33,6 +34,7 @@ namespace Identity.Api
             services.AddTransient<IUserFacade, UserFacade>();
             services.AddScoped<IUserRepository, LegacyUserRepository>();
             services.AddScoped<IUserRepository, ModernUserRepository>();
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
