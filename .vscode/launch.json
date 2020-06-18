@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Identity.Api/bin/Debug/netcoreapp3.1/Identity.Api.dll",
+            "program": "${workspaceFolder}/src/Identity.Api/bin/Debug/netcoreapp3.1/Identity.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Identity.Api",
+            "cwd": "${workspaceFolder}/src/Identity.Api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
@@ -21,7 +21,7 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/Views": "${workspaceFolder}/src/Views"
             }
         },
         {
