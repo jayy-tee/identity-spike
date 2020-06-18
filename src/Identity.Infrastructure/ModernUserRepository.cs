@@ -4,25 +4,26 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Options;
 using Identity.Application.Users;
 using Identity.Common;
 using Identity.Domain.UserAggregate;
+using Identity.Infrastructure.Config;
 
 namespace Identity.Infrastructure
 {
     public class ModernUserRepository : IUserRepository, IDisposable
     {
         private readonly IDbConnection _db;
-        private const string _connString = "Server=win10vm.local;Database=Identity_Spike;User Id=identity_spike;Password=IdentitySpikepa44word;";
         public void Dispose()
         {
             _db.Close();
         }
 
         public UserSource SourceSystem { get; private set; }
-        public ModernUserRepository()
+        public ModernUserRepository(IOptions<ConnectionStrings> connectionStrings)
         {
-            _db = new SqlConnection(_connString);
+            _db = new SqlConnection(connectionStrings.Value.ModernUsers);
             SourceSystem = UserSource.New;
         }
 
