@@ -34,16 +34,27 @@ namespace Identity.Api.AcceptanceTests
 
             // Act
             var response = Client.Execute(request, andExpect: System.Net.HttpStatusCode.OK).Content;
-            using var jsonResponse = JsonDocument.Parse(response);
 
             // Assert
+
+            /* 
+                We have two ways we can assert the shape (and/or content) of the response contract ... 
+            */
+            //  1) Using JsonDocument:
+            using var jsonResponse = JsonDocument.Parse(response);
             jsonResponse.RootElement.GetProperty("username").GetString().Should().NotBeNullOrEmpty();
             jsonResponse.RootElement.GetProperty("username").GetString().Should().Be(testUserUsername);
-            // response.FirstName.Should().NotBeNullOrEmpty().And.BeOfType(typeof(string));
-            // response.LastName.Should().NotBeNullOrEmpty().And.BeOfType(typeof(string));
-            // response.EmailAddress.Should().NotBeNullOrEmpty().And.BeOfType(typeof(string));
-            // response.Source.Should().BeOfType(typeof(int)).And.BeOneOf(1,2);
-            // response.UserStatus.Should().BeOfType(typeof(int)).And.BeOneOf(0,1);
+
+            //  2) Using strict JsonSerializerOptions to deserialize to a strongly-typed object:
+            var responseObject = JsonSerializer.Deserialize<UserProfileResponse>(response, new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = false,
+            });
+
+            responseObject.firstName.Should().NotBeNullOrEmpty();
+            responseObject.lastName.Should().NotBeNullOrEmpty();
+            responseObject.emailAddress.Should().NotBeNullOrEmpty();
+            responseObject.source.Should().BeOneOf(1,2);
+            responseObject.userStatus.Should().BeOneOf(0,1);
         }
 
         [TestMethod]
