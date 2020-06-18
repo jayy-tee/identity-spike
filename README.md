@@ -47,7 +47,7 @@ Two SQL scripts are provided that can be used to create the schema for the two u
 | ----------| ---|
 | Jason Taylor: Clean Architecture | https://github.com/jasontaylordev/CleanArchitecture |
 | greyhamwoohoo: Test-dotnet-core-api-3 | https://github.com/greyhamwoohoo/test-dotnet-core-api-3 |
-| 
+
 
 
 
