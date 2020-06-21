@@ -35,13 +35,18 @@ stages:
           inputs:
             command: test
             projects: ${{variables.unitTestTarget}}
-            arguments: '-c Release'
+            arguments: '-c Release -p:CollectCoverage=true -p:CoverletOutputFormat=cobertura -p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/UnitTests/Coverage/'
         - task: DotNetCoreCLI@2
           displayName: Run In-Process Acceptance Tests
           inputs:
             command: test
             projects: ${{variables.acceptanceTestTarget}}
-            arguments: '-c Release'
+            arguments: '-c Release -p:CollectCoverage=true -p:CoverletOutputFormat=cobertura -p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/AcceptanceTests/Coverage/'
+        - task: PublishCodeCoverageResults@1
+          displayName: 'Publish code coverage report'
+          inputs:
+            codeCoverageTool: 'Cobertura'
+            summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
         - task: PublishBuildArtifacts@1
           inputs:
             pathToPublish: '$(Build.ArtifactStagingDirectory)'
