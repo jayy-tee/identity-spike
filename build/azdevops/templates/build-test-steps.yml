@@ -1,0 +1,27 @@
+## Restore; Build; Run Unit Tests and In-Process Acceptance Tests ##
+steps:
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: restore
+    projects: $(buildTarget)
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish'
+  inputs:
+    command: publish
+    projects: $(buildTarget)
+    arguments: '--no-restore -c Release -p:Version=$(Build.BuildNumber) -p:WebPublishMethod=FileSystem -o $(Build.ArtifactStagingDirectory)'
+    publishWebProjects: true
+    zipAfterPublish: false
+- task: DotNetCoreCLI@2
+  displayName: Run Unit Tests
+  inputs:
+    command: test
+    projects: $(unitTestTarget)
+    arguments: '-c Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/UnitTests'
+- task: DotNetCoreCLI@2
+  displayName: Run In-Process Acceptance Tests
+  inputs:
+    command: test
+    projects: $(acceptanceTestTarget)
+    arguments: '-c Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/AcceptanceTests'

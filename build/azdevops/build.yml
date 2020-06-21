@@ -1,12 +1,12 @@
 name: $(Year:yyyy).$(Date:MMdd).$(rev:rr)-$(Build.SourceBranchName)
 
 variables:
-    buildTarget: '**/*.sln'
-    acceptanceTestTarget: '**/*.AcceptanceTests.csproj'
-    unitTestTarget: '**/*.UnitTests.csproj'
+  buildTarget: '**/*.sln'
+  acceptanceTestTarget: '**/*.AcceptanceTests.csproj'
+  unitTestTarget: '**/*.UnitTests.csproj'
 
 trigger:
-    - none
+- none
 
 stages:
 - stage: build
@@ -17,31 +17,7 @@ stages:
     pool:
         vmImage: 'ubuntu-latest'
     steps:
-        - task: DotNetCoreCLI@2
-          displayName: 'dotnet restore'
-          inputs:
-            command: restore
-            projects: ${{variables.buildTarget}}
-        - task: DotNetCoreCLI@2
-          displayName: 'dotnet publish'
-          inputs:
-            command: publish
-            projects: ${{variables.buildTarget}}
-            arguments: '--no-restore -c Release -p:Version=$(Build.BuildNumber) -p:WebPublishMethod=FileSystem -o $(Build.ArtifactStagingDirectory)'
-            publishWebProjects: true
-            zipAfterPublish: false
-        - task: DotNetCoreCLI@2
-          displayName: Run Unit Tests
-          inputs:
-            command: test
-            projects: ${{variables.unitTestTarget}}
-            arguments: '-c Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/UnitTests'
-        - task: DotNetCoreCLI@2
-          displayName: Run In-Process Acceptance Tests
-          inputs:
-            command: test
-            projects: ${{variables.acceptanceTestTarget}}
-            arguments: '-c Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/AcceptanceTests'
+        - template: templates/build-test-steps.yml
         - task: PublishCodeCoverageResults@1
           displayName: 'Publish code coverage report'
           inputs:
