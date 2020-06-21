@@ -40,5 +40,11 @@ namespace Identity.Api.AcceptanceTests
         {
             Assert.IsTrue(true);
         }
+
+        [TestMethod]
+        public void DummyTest()
+        {
+            Assert.IsTrue(true);
+        }
     }
 }
