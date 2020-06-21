@@ -1,5 +1,0 @@
-## Common Build Variables ##
-variables:
-    buildTarget: '**/*.sln'
-    acceptanceTestTarget: '**/*.AcceptanceTests.csproj'
-    unitTestTarget: '**/*.UnitTests.csproj'
