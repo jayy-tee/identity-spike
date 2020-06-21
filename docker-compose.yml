@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql
+    ports:
+        - "13306:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: spiketest123
+        MYSQL_USER: identity_spike
+        MYSQL_PASSWORD: identity_spike
+        MYSQL_DATABASE: identity_spike
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+        - "11433:1433"
+    environment:
+        ACCEPT_EULA: Y
+        SA_PASSWORD: IdentitySpike!!12383472
+        MSSQL_PID: Developer
