@@ -21,12 +21,12 @@ stages:
           displayName: 'dotnet restore'
           inputs:
             command: restore
-            projects: ${{buildTarget}}
+            projects: ${{variables.buildTarget}}
         - task: DotNetCoreCLI@2
           displayName: 'dotnet publish'
           inputs:
             command: publish
-            projects: ${{buildTarget}}
+            projects: ${{variables.buildTarget}}
             arguments: '--no-restore -c Release -p:Version=$(Build.BuildNumber) -p:WebPublishMethod=FileSystem -o $(Build.ArtifactStagingDirectory)'
             publishWebProjects: true
             zipAfterPublish: false
@@ -34,13 +34,13 @@ stages:
           displayName: Run Unit Tests
           inputs:
             command: test
-            projects: ${{unitTestTarget}}
+            projects: ${{variables.unitTestTarget}}
             arguments: '-c Release'
         - task: DotNetCoreCLI@2
           displayName: Run In-Process Acceptance Tests
           inputs:
             command: test
-            projects: ${{acceptanceTestTarget}}
+            projects: ${{variables.acceptanceTestTarget}}
             arguments: '-c Release'
         - task: PublishBuildArtifacts@1
           inputs:
