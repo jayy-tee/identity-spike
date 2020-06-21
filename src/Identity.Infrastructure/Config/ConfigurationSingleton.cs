@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 
-namespace Identity.Api
+namespace Identity.Infrastructure.Config
 {
     /// <summary>
     /// </summary>
