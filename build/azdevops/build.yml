@@ -25,7 +25,7 @@ stages:
           inputs:
             codeCoverageTool: 'Cobertura'
             summaryFileLocation: '$(Build.SourcesDirectory)/**/*.cobertura.xml'
-        - ${{ if ne(variables.Build.Reason, 'PullRequest') }}:
+        - ${{ if ne(Build.Reason, 'PullRequest') }}:
           - task: PublishBuildArtifacts@1
             inputs:
               pathToPublish: '$(Build.ArtifactStagingDirectory)'
