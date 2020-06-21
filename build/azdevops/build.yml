@@ -6,7 +6,9 @@ variables:
   unitTestTarget: '**/*.UnitTests.csproj'
 
 trigger:
-- none
+  - none
+pr:
+  - master
 
 stages:
 - stage: build
@@ -23,7 +25,8 @@ stages:
           inputs:
             codeCoverageTool: 'Cobertura'
             summaryFileLocation: '$(Build.SourcesDirectory)/**/*.cobertura.xml'
-        - task: PublishBuildArtifacts@1
-          inputs:
-            pathToPublish: '$(Build.ArtifactStagingDirectory)'
-            artifactName: drop
+        - ${{ if ne(variables.Build.Reason, 'PullRequest') }}:
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)'
+              artifactName: drop
