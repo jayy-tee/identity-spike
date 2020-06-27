@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Api", "Identity.Api\Identity.Api.csproj", "{D99FF050-C606-4474-A223-5C4396CFF054}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Api", "src\Identity.Api\Identity.Api.csproj", "{D99FF050-C606-4474-A223-5C4396CFF054}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Common", "Identity.Common\Identity.Common.csproj", "{8A7501A4-F1C6-4CF7-9E5E-1F3598593460}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Common", "src\Identity.Common\Identity.Common.csproj", "{8A7501A4-F1C6-4CF7-9E5E-1F3598593460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain", "Identity.Domain\Identity.Domain.csproj", "{E323DF82-C985-4C15-8FF0-EC78CE8CBB97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain", "src\Identity.Domain\Identity.Domain.csproj", "{E323DF82-C985-4C15-8FF0-EC78CE8CBB97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Infrastructure", "Identity.Infrastructure\Identity.Infrastructure.csproj", "{74A1DA3B-D13F-4575-BB1D-594B9F79FA20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Infrastructure", "src\Identity.Infrastructure\Identity.Infrastructure.csproj", "{74A1DA3B-D13F-4575-BB1D-594B9F79FA20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Application", "Identity.Application\Identity.Application.csproj", "{8D64FACE-89AC-451C-B763-16858C2ED018}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Application", "src\Identity.Application\Identity.Application.csproj", "{8D64FACE-89AC-451C-B763-16858C2ED018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain.UnitTests", "Identity.Domain.UnitTests\Identity.Domain.UnitTests.csproj", "{C1049A47-4BA3-4170-A142-EC49A56522E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain.UnitTests", "test\Identity.Domain.UnitTests\Identity.Domain.UnitTests.csproj", "{C1049A47-4BA3-4170-A142-EC49A56522E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Api.AcceptanceTests", "Identity.Api.AcceptanceTests\Identity.Api.AcceptanceTests.csproj", "{E2DA09F6-7B1A-4C8D-8630-23DA594A9E28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Api.AcceptanceTests", "test\Identity.Api.AcceptanceTests\Identity.Api.AcceptanceTests.csproj", "{E2DA09F6-7B1A-4C8D-8630-23DA594A9E28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.TestSdk", "Identity.TestSdk\Identity.TestSdk.csproj", "{9397305D-4BF5-4A92-9AB4-02BF2D61BBCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.TestSdk", "test\Identity.TestSdk\Identity.TestSdk.csproj", "{9397305D-4BF5-4A92-9AB4-02BF2D61BBCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Cli", "Identity.Cli\Identity.Cli.csproj", "{1967E728-5BE7-4BFA-81A0-BDA1B65B993B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Cli", "src\Identity.Cli\Identity.Cli.csproj", "{1967E728-5BE7-4BFA-81A0-BDA1B65B993B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

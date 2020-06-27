@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Identity.Api\Identity.Api.csproj" />
-    <ProjectReference Include="..\Identity.Common\Identity.Common.csproj" />
-    <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Identity.Api\Identity.Api.csproj" />
+    <ProjectReference Include="..\..\src\Identity.Common\Identity.Common.csproj" />
+    <ProjectReference Include="..\..\src\Identity.Domain\Identity.Domain.csproj" />
     <ProjectReference Include="..\Identity.TestSdk\Identity.TestSdk.csproj" />
   </ItemGroup>
 
@@ -28,9 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Identity.Api\appsettings.Development.json" Link="appsettings.Development.json" />
-    <Content Include="..\Identity.Api\appsettings.json" Link="appsettings.json" />
-    <Content Include="..\Identity.Api\appsettings.Local.json" Link="appsettings.Local.json" />
+    <Content Include="..\..\src\Identity.Api\appsettings.Development.json" Link="appsettings.Development.json" />
+    <Content Include="..\..\src\Identity.Api\appsettings.json" Link="appsettings.json" />
+    <Content Include="..\..\src\Identity.Api\appsettings.Local.json" Link="appsettings.Local.json" />
     <Content Include="TestSettings\testSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
