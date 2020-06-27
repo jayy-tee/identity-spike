@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Identity.Application.Users;
 using Identity.Application.Users.Model;
 using Identity.Common;
-using Identity.Domain.UserAggregate;
 
 namespace Identity.Api.Controllers
 {

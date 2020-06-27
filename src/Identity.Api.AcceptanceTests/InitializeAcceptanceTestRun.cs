@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Identity.Api.AcceptanceTests.Infrastructure;
-using Identity.Infrastructure.Config;
+using Identity.Api.Config;
 
 namespace Identiy.Api.AcceptanceTests
 {

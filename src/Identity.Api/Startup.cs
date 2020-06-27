@@ -10,11 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Identity.Application.Users;
-using Identity.Domain.UserAggregate;
+using Identity.Application;
 using Identity.Infrastructure;
-using Identity.Infrastructure.Config;
-
 
 namespace Identity.Api
 {
@@ -31,10 +28,8 @@ namespace Identity.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IUserFacade, UserFacade>();
-            services.AddScoped<IUserRepository, LegacyUserRepository>();
-            services.AddScoped<IUserRepository, ModernUserRepository>();
-            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.AddApplication();
+            services.AddInfrastructure(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

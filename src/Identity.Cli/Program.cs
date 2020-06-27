@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using Identity.Cli;
+using Identity.Application;
 using Identity.Application.Users;
+using Identity.Cli.Config;
 using Identity.Infrastructure;
-using Identity.Infrastructure.Config;
 
 namespace Identity.Cli
 {
@@ -25,11 +25,9 @@ namespace Identity.Cli
         {
             var services = new ServiceCollection();
             var configuration = ConfigurationSingleton.Instance;
-            services.Configure<ConnectionStrings>(configuration.GetSection("ConnectionStrings"));
             services.AddLogging(configure => configure.AddConsole());
-            services.AddScoped<IUserRepository, LegacyUserRepository>();
-            services.AddScoped<IUserRepository, ModernUserRepository>();
-            services.AddTransient<IUserFacade, UserFacade>();
+            services.AddApplication();
+            services.AddInfrastructure(configuration);
             services.AddTransient<IdentityCli, IdentityCli>();
             return services;
         }

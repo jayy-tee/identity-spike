@@ -19,16 +19,16 @@ namespace Identity.Application.Users
             _logger = logger;
         }
 
-        public async Task<User> GetUser(string username)
+        public async Task<UserDto> GetUser(string username)
         {
             var userSource = await FindUserSource(username);
             if (userSource == UserSource.None)
                 return null;
 
-            return await _repos.Where(x => x.SourceSystem == userSource).First().Get(username);
+            return (await _repos.Where(x => x.SourceSystem == userSource).First().Get(username)).MapToDto();
         }
 
-        public async Task<User> ValidateCredentials(UserCredential credential)
+        public async Task<UserDto> ValidateCredentials(UserCredential credential)
         {
             var userSource = await FindUserSource(credential.Username);
             if (userSource == UserSource.None)
@@ -36,12 +36,12 @@ namespace Identity.Application.Users
 
             var user = await _repos.Where(x => x.SourceSystem == userSource).First().Get(credential.Username);
             if (user.ValidatePassword(credential.Password))
-                return user;
+                return user.MapToDto();
 
             return null;
         }
 
-        public async Task<User> NewUser(NewUserDto request){
+        public async Task<UserDto> NewUser(NewUserDto request){
             var user = new User(
                 request.FirstName, request.LastName, request.Username, 
                 request.EmailAddress, UserStatus.Enabled, request.Password, (UserSource)request.System);
@@ -50,7 +50,7 @@ namespace Identity.Application.Users
             if (!result)
                 return null;
 
-            return user;
+            return user.MapToDto();
         }
 
         private async Task<UserSource> FindUserSource(string username)
