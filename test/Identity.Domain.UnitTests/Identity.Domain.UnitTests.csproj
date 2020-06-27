@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Identity.Common\Identity.Common.csproj" />
-    <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Identity.Common\Identity.Common.csproj" />
+    <ProjectReference Include="..\..\src\Identity.Domain\Identity.Domain.csproj" />
     <ProjectReference Include="..\Identity.TestSdk\Identity.TestSdk.csproj" />
   </ItemGroup>
 
