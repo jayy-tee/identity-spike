@@ -1,4 +1,4 @@
-namespace Identity.Domain.UserAggregate
+namespace Identity.Common
 {
     public enum UserStatus {
         Disabled = 0,
