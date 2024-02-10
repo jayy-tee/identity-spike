@@ -11,9 +11,9 @@ namespace Identity.TestSdk.Models
         {
             PropertyNameCaseInsensitive = false,
         };
-        private readonly IRestResponse _response;
+        private readonly RestResponse  _response;
 
-        public Response(IRestResponse response)
+        public Response(RestResponse response)
         {
             _response = response;
         }

@@ -3,6 +3,7 @@ using System.Net;
 using Identity.TestSdk.Contracts;
 using Identity.TestSdk.Infrastructure;
 using Identity.TestSdk.Models;
+using RestSharp;
 
 namespace Identity.TestSdk.Services
 {
@@ -43,7 +44,7 @@ namespace Identity.TestSdk.Services
             return new Response(response);
         }
 
-        private RestSharp.IRestResponse ExecuteRequestViaRestSharp(IRequest request)
+        private RestSharp.RestResponse ExecuteRequestViaRestSharp(IRequest request)
         {
             var rc = new RestSharp.RestClient(_testSettings.BaseUrl);
             var rr = new RestSharp.RestRequest(request.RelativeUrl, request.Method);
