@@ -3,7 +3,7 @@ identity-spike
 This repo is home to a proof-of-concept .NET Core API and associated projects built around a fictitious and contrived scenario that requires a single authentication provider, backed by two separate user sources.
 
 ## Technologies
-* .NET Core 3.1 / ASP .NET Core 3.1
+* .NET 8 / ASP .NET 8
 * Dapper
 * FluentAssertions
 * MySQL
