@@ -22,8 +22,8 @@ namespace Identity.Domain.UnitTests
             testUser.LastName.Should().Be(ValidLegacyUser.Lastname);
             testUser.Username.Should().Be(ValidLegacyUser.Username);
             testUser.EmailAddress.Should().Be(ValidLegacyUser.EmailAddress);
-            testUser.Source.Should().Be(ValidLegacyUser.Status);
-            testUser.UserStatus.Should().Be(ValidLegacyUser.UserSource);
+            testUser.Source.Should().Be(ValidLegacyUser.UserSource);
+            testUser.UserStatus.Should().Be(ValidLegacyUser.Status);
         }
 
         [TestMethod]

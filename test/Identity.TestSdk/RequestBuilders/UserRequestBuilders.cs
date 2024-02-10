@@ -16,7 +16,7 @@ namespace Identity.TestSdk.RequestBuilders
         public UserRequestBuilder()
         {
             _user = new User();
-            _method = Method.GET;
+            _method = Method.Get;
             _relativeUrl = "/fake/url";
         }
 
@@ -28,7 +28,7 @@ namespace Identity.TestSdk.RequestBuilders
 
         public UserRequestBuilder CreateUser()
         {
-            _method = Method.POST;
+            _method = Method.Post;
             _relativeUrl = "/api/user/new";
             
             return this;
@@ -36,7 +36,7 @@ namespace Identity.TestSdk.RequestBuilders
 
         public UserRequestBuilder GetUser(string username)
         {
-            _method = Method.GET;
+            _method = Method.Get;
             _relativeUrl = $"/api/user/{username}";
             _user = null;
 
@@ -45,7 +45,7 @@ namespace Identity.TestSdk.RequestBuilders
 
         public UserRequestBuilder Authenticate(string username)
         {
-            _method = Method.POST;
+            _method = Method.Post;
             _user.Username = username;
             _relativeUrl = $"/api/user/{_user.Username}/authenticate";
 
